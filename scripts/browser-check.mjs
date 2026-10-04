@@ -1,7 +1,10 @@
 // Optional live-browser checks using Node 22+ and a local Chrome debugging port.
 // No npm dependencies. See README for the browser/server prerequisites.
 import assert from 'node:assert/strict';
-import { writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+
+const projects = JSON.parse(await readFile(new URL('../content/projects.json', import.meta.url), 'utf8'));
+const categories = ['full-stack', 'machine-learning', 'game-ai'].map(category => [category, projects.filter(project => project.category === category).length]);
 
 const origin = process.env.SITE_URL || 'http://127.0.0.1:8765/personal_website/';
 const debugging = process.env.CHROME_DEBUG_URL || 'http://127.0.0.1:9223';
@@ -60,6 +63,7 @@ async function viewport(width, height) {
   await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
 }
 async function noOverflow() {
+  await evaluate('Promise.all([...document.images].map(image => { image.loading = "eager"; return image.decode(); })).then(() => true)');
   assert(await evaluate('document.documentElement.scrollWidth <= innerWidth'), 'Horizontal overflow');
   assert(await evaluate('[...document.images].every(image => image.complete && image.naturalWidth > 0)'), 'Broken image');
 }
@@ -77,8 +81,8 @@ try {
   await visit();
   await noOverflow();
   await screenshot('desktop');
-  assert.equal(await evaluate('document.querySelectorAll("[data-project-card]").length'), 8);
-  for (const [category, count] of [['full-stack', 3], ['machine-learning', 3], ['game-ai', 2], ['all', 8]]) {
+  assert.equal(await evaluate('document.querySelectorAll("[data-project-card]").length'), projects.length);
+  for (const [category, count] of [...categories, ['all', projects.length]]) {
     await evaluate(`document.querySelector('button[data-category="${category}"]').click()`);
     assert.equal(await evaluate('[...document.querySelectorAll("[data-project-card]")].filter(card => !card.hidden).length'), count);
     assert.equal(await evaluate(`document.querySelector('button[data-category="${category}"]').getAttribute('aria-pressed')`), 'true');
@@ -107,21 +111,29 @@ try {
     await visit(path);
     await noOverflow();
     assert.equal(await evaluate('document.querySelectorAll("h1").length'), 1);
+    const project = projects.find(project => path === `projects/${project.slug}.html`);
+    assert(project, 'Unexpected project detail URL');
+    if (!project.repo) {
+      assert.equal(await evaluate('document.querySelectorAll(".project-aside a").length'), 0);
+      assert(await evaluate('[...document.querySelectorAll("h2")].some(heading => heading.textContent === "My contribution")'));
+      await screenshot(`${project.slug}-mobile`);
+    }
     await viewport(1440, 1000);
     await noOverflow();
     if (path.includes('cortexdocs')) await screenshot('project-detail');
+    if (!project.repo) await screenshot(`${project.slug}-desktop`);
     await viewport(390, 844);
   }
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   assert.equal(await evaluate('getComputedStyle(document.documentElement).scrollBehavior'), 'auto');
   await send('Emulation.setScriptExecutionDisabled', { value: true });
   await visit();
-  assert.equal(await evaluate('document.querySelectorAll("[data-project-card]:not([hidden])").length'), 8);
+  assert.equal(await evaluate('document.querySelectorAll("[data-project-card]:not([hidden])").length'), projects.length);
   assert.notEqual(await evaluate('getComputedStyle(document.querySelector("#site-navigation")).display'), 'none');
   assert(await evaluate('document.querySelector("[data-filters]").hidden'));
   await noOverflow();
   assert.deepEqual(errors, [], 'Browser exceptions or failed HTTP responses');
-  console.log('PASS: desktop/tablet/mobile layouts; images; four filters; keyboard skip link; mobile menu and Escape; eight direct detail URLs; reduced motion; no-JavaScript navigation/content; no browser exceptions or HTTP errors.');
+  console.log(`PASS: desktop/tablet/mobile layouts; images; four filters; keyboard skip link; mobile menu and Escape; ${projects.length} direct detail URLs; description-only pages; reduced motion; no-JavaScript navigation/content; no browser exceptions or HTTP errors.`);
 } finally {
   await send('Emulation.setScriptExecutionDisabled', { value: false });
   await send('Emulation.setEmulatedMedia', { features: [] });

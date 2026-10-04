@@ -84,7 +84,7 @@ def homepage():
     featured = ''.join(f'''<article class="featured-card">
       <div class="project-visual"><img src="./assets/images/{p['slug']}.svg" alt="Conceptual workflow: {e(' → '.join(p['steps']))}" width="480" height="340" loading="lazy"></div>
       <div class="featured-body"><span class="category-label">{e(p['label'])}</span><h3>{e(p['name'])}</h3><p>{e(p['summary'])}</p>{tags(p)}<a class="text-link" href="./projects/{p['slug']}.html">Explore {e(p['name'])} <span aria-hidden="true">↗</span></a></div>
-    </article>''' for p in PROJECTS[:3])
+    </article>''' for p in PROJECTS if p.get('featured'))
     cards = ''.join(f'''<article class="project-card" data-project-card data-category="{p['category']}">
       <div class="card-top"><div><div class="category-label">{e(p['label'])}</div><h3><a href="./projects/{p['slug']}.html">{e(p['name'])}</a></h3></div><span class="project-number" aria-hidden="true">{i:02d}</span></div>
       <p>{e(p['summary'])}</p>{tags(p)}</article>''' for i, p in enumerate(PROJECTS, 1))
@@ -102,12 +102,12 @@ def homepage():
           <div class="art-block"><span class="art-symbol">↗</span><div><b>Better decisions</b><small>From search to strategy</small></div></div>
         </div>
       </section>
-      <div class="intro-strip"><span>08 selected projects</span><span>Applications / Machine learning / Game AI</span><span>Explore the source on GitHub ↗</span></div>
+      <div class="intro-strip"><span>{len(PROJECTS):02d} selected projects</span><span>Applications / Machine learning / Game AI</span><span>Explore public source on GitHub ↗</span></div>
       <section class="section" aria-labelledby="featured-title"><div class="section-heading"><div><div class="eyebrow">A closer look</div><h2 id="featured-title">Featured work</h2></div><p>Three projects connecting technical ideas with everyday workflows.</p></div><div class="featured-grid">{featured}</div></section>
       <section class="section all-projects" id="projects" aria-labelledby="projects-title"><div class="section-heading"><div><div class="eyebrow">The collection</div><h2 id="projects-title">Selected projects</h2></div><p>From document copilots to game-playing agents. Each project explores a different problem.</p></div>
         <div class="filter-bar"><div class="filters" data-filters role="group" aria-label="Filter projects by category" hidden>
           <button type="button" data-category="all" aria-pressed="true">All projects</button><button type="button" data-category="full-stack" aria-pressed="false">Full-stack</button><button type="button" data-category="machine-learning" aria-pressed="false">Machine learning</button><button type="button" data-category="game-ai" aria-pressed="false">Game AI</button>
-        </div><p class="filter-status" data-filter-status role="status" aria-live="polite" aria-atomic="true">8 projects · All projects</p></div><div class="project-grid">{cards}</div>
+        </div><p class="filter-status" data-filter-status role="status" aria-live="polite" aria-atomic="true">{len(PROJECTS)} projects · All projects</p></div><div class="project-grid">{cards}</div>
       </section>
       <section class="section about" id="about" aria-labelledby="about-title"><div><div class="eyebrow">Behind the projects</div><h2 id="about-title">Curiosity, translated<br>into code.</h2></div><div class="about-copy"><p>My projects span full-stack applications, computer-vision experiments, and search-based game agents. This portfolio brings that work together, with a closer look at the problem, technical approach, and limitations of each project.</p><div class="skills"><div><h3>Application development</h3><p>React · TypeScript<br>Express · Spring Boot<br>PostgreSQL</p></div><div><h3>Applied machine learning</h3><p>Python · PyTorch<br>Computer vision<br>Retrieval-augmented generation</p></div><div><h3>Algorithms &amp; experiments</h3><p>Tree search · Minimax<br>Heuristic design<br>Model comparison</p></div></div></div></section>
       <section class="contact" id="contact" aria-labelledby="contact-title"><div><div class="eyebrow">Keep exploring</div><h2 id="contact-title">Let's connect.</h2><p>Find my public work and project repositories on GitHub.</p></div><a class="button primary" href="{GITHUB}">Find me on GitHub <span aria-hidden="true">↗</span></a></section>
@@ -116,7 +116,13 @@ def homepage():
 
 
 def detail(project, next_project):
-    repo_url = GITHUB + '/' + project['repo']
+    repository = ''
+    if project.get('repo'):
+        repo_url = GITHUB + '/' + project['repo']
+        repository = f'<h2>Explore the project</h2><p>Source code, documentation, and setup instructions are available in the repository.</p><div class="actions"><a class="button primary" href="{e(repo_url)}">View repository ↗</a></div>'
+    contribution = ''
+    if project.get('contribution'):
+        contribution = f'<h2>My contribution</h2><p>{e(project["contribution"])}</p>'
     related = ''
     if project.get('relatedRepo'):
         related = f'<a class="text-link" href="{GITHUB}/{project["relatedRepo"]}">Single-player search source ↗</a>'
@@ -125,8 +131,8 @@ def detail(project, next_project):
       <section class="detail-hero"><a class="back-link" href="../index.html#projects">← Back to all projects</a><div class="eyebrow">{e(project['label'])}</div><h1>{e(project['name'])}</h1><p class="detail-lead">{e(project['summary'])}</p>{tags(project)}</section>
       <div class="detail-layout"><article class="prose" aria-label="Project overview">
         <figure class="detail-figure"><img src="../assets/images/{project['slug']}.svg" alt="Conceptual workflow: {e(' → '.join(project['steps']))}" width="480" height="340"><figcaption>Illustrative workflow — not an application screenshot or measured result.</figcaption></figure>
-        <h2>The idea</h2><p>{e(project['overview'])}</p><h2>Project scope</h2><ul>{features}</ul><h2>Technical approach</h2><p>{e(project['approach'])}</p><h2>Scope &amp; limitations</h2><p>{e(project['limits'])}</p>
-      </article><aside class="project-aside"><h2>Explore the project</h2><p>Source code, documentation, and setup instructions are available in the repository.</p><div class="actions"><a class="button primary" href="{repo_url}">View repository ↗</a></div>{related}<h2>Technology</h2>{tags(project)}<div class="note">This page summarizes documented project work. It does not claim independently reproduced benchmarks, production deployment, or sole authorship.</div></aside></div>
+        <h2>The idea</h2><p>{e(project['overview'])}</p>{contribution}<h2>Project scope</h2><ul>{features}</ul><h2>Technical approach</h2><p>{e(project['approach'])}</p><h2>Scope &amp; limitations</h2><p>{e(project['limits'])}</p>
+      </article><aside class="project-aside">{repository}{related}<h2>Technology</h2>{tags(project)}<div class="note">This page summarizes documented project work. It does not claim independently reproduced benchmarks, production deployment, or sole authorship.</div></aside></div>
       <nav class="next-project" aria-label="More projects"><a class="text-link" href="../index.html#projects">← All projects</a><a class="text-link" href="./{next_project['slug']}.html">Next: {e(next_project['name'])} →</a></nav>
     </div>'''
     return shell(project['name'], project['summary'], body, f"projects/{project['slug']}.html")

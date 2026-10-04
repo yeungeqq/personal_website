@@ -1,6 +1,6 @@
 # Yee Kiu Yeung — Personal portfolio
 
-A responsive, static portfolio featuring eight selected projects. Built with HTML,
+A responsive, static portfolio featuring ten selected projects. Built with HTML,
 CSS, and vanilla JavaScript. No runtime packages, remote fonts, API keys, or live
 GitHub API requests are required.
 
@@ -21,7 +21,7 @@ directory and visit `http://127.0.0.1:8000/personal_website/`.
 ## Edit project content
 
 - `content/projects.json`: project summaries, technical details, limitations,
-  technology tags, categories, and repository names.
+  technology tags, categories, contributions, featured flags, and optional repository names.
 - `scripts/build.py`: shared HTML templates, homepage introduction and About text,
   canonical deployment URL, and conceptual SVG diagrams.
 - `assets/css/styles.css`: layout, colors, responsive design, and motion preferences.
@@ -39,6 +39,11 @@ Commit the generated `index.html`, `projects/*.html`, `assets/images/*.svg`, and
 `sitemap.xml` alongside the source changes. Do not directly edit generated files;
 regeneration will replace those edits. The authoring scripts use Python 3.9+ and
 the standard library only. Publishing does not need Python or Node.
+
+Set `featured: true` to include a project in Featured work. Collection order is
+independent of featured status. Omit `repo` for description-only projects; their
+pages show no repository button or source-access instructions. Use `contribution`
+for a confirmed personal contribution, rendered under "My contribution".
 
 ## Publish on GitHub Pages
 
@@ -59,8 +64,10 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a
 
 ## Content and presentation
 
-- Eight project entries; the two Tetress repositories share one case study.
+- Ten project entries; the two Tetress repositories share one case study.
 - Three featured applications, plus a filterable complete collection.
+- VIC Integrated Workbench and MatchAMate have descriptions and confirmed backend
+  development/deployment contributions, with no private repository links.
 - All content and links remain available without JavaScript.
 - Diagrams are original, labeled conceptual workflows, not product screenshots.
 - Project summaries are based on repository documentation and source inspection.
@@ -77,7 +84,8 @@ can be added later when an approved personal/project visual is available.
 
 The standard-library checker verifies the page count, category counts, local
 links and fragments, project-hosting-safe paths, image alternative text and
-dimensions, metadata, unique IDs, and SVG/XML syntax. It also checks that excluded
+dimensions, metadata, unique IDs, description-only pages, contribution sections,
+and SVG/XML syntax. It also checks that excluded
 projects and placeholder text do not appear in published pages.
 
 Manual browser review should cover mobile/tablet/desktop layouts, keyboard focus,

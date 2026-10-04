@@ -16,6 +16,7 @@ class Page(HTMLParser):
         self.refs = []
         self.h1 = 0
         self.cards = 0
+        self.categories = {}
         self.description = False
         self.feed(path.read_text())
 
@@ -26,6 +27,9 @@ class Page(HTMLParser):
             self.ids.add(attrs['id'])
         self.h1 += tag == 'h1'
         self.cards += 'data-project-card' in attrs
+        if 'data-project-card' in attrs:
+            category = attrs.get('data-category')
+            self.categories[category] = self.categories.get(category, 0) + 1
         if tag == 'meta' and attrs.get('name') == 'description':
             self.description = bool(attrs.get('content'))
         if tag == 'img':
@@ -38,12 +42,23 @@ class Page(HTMLParser):
 
 def check():
     pages = {p.resolve(): Page(p) for p in [ROOT / 'index.html', *sorted((ROOT / 'projects').glob('*.html'))]}
-    assert len(pages) == 9, 'Expected homepage and eight project pages'
     projects = json.loads((ROOT / 'content/projects.json').read_text())
-    assert len(projects) == len({p['slug'] for p in projects}) == 8
-    assert pages[(ROOT / 'index.html').resolve()].cards == 8
+    assert len(pages) == len(projects) + 1, 'Expected homepage and one detail page per project'
+    assert len(projects) == len({p['slug'] for p in projects}), 'Duplicate project slugs'
+    home = pages[(ROOT / 'index.html').resolve()]
+    assert home.cards == len(projects)
     categories = {c: sum(p['category'] == c for p in projects) for c in ('full-stack', 'machine-learning', 'game-ai')}
-    assert categories == {'full-stack': 3, 'machine-learning': 3, 'game-ai': 2}
+    assert home.categories == categories, 'Project filter categories do not match content'
+    for project in projects:
+        page = pages[(ROOT / 'projects' / (project['slug'] + '.html')).resolve()]
+        if not project.get('repo'):
+            text = page.path.read_text()
+            assert 'View repository' not in text
+            assert 'available in the repository' not in text
+            assert not project.get('relatedRepo'), 'Description-only projects must omit repository links'
+            assert all(not ref.startswith('https://github.com/') or ref.rstrip('/') == 'https://github.com/yeungeqq' for ref in page.refs), 'Unexpected repository link on description-only page'
+        if project.get('contribution'):
+            assert '<h2>My contribution</h2>' in page.path.read_text()
     for path, page in pages.items():
         assert page.h1 == 1, f'Expected one h1: {path}'
         assert page.description, f'Missing meta description: {path}'
@@ -64,7 +79,7 @@ def check():
         ET.parse(path)
     ET.parse(ROOT / 'sitemap.xml')
     assert (ROOT / '.nojekyll').exists()
-    print(f'PASS: {len(pages)} pages; eight projects; category counts; links and anchors; metadata; image accessibility; SVG/XML; excluded content.')
+    print(f'PASS: {len(pages)} pages; {len(projects)} projects; category counts; description-only pages; contribution sections; links and anchors; metadata; image accessibility; SVG/XML; excluded content.')
 
 
 if __name__ == '__main__':

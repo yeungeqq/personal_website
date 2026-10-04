@@ -1,6 +1,39 @@
 [
   {
+    "slug": "vic-integrated-workbench",
+    "name": "VIC Integrated Workbench",
+    "category": "full-stack",
+    "label": "Full-stack · Court Services",
+    "tags": ["React", "Spring Boot", "PostgreSQL", "Python", "Docker"],
+    "summary": "A Court Services workbench combining a web interface, backend API, and document-processing services.",
+    "overview": "VIC Integrated Workbench is a collaborative Court Services project that brings application workflows and document processing into one platform. The system connects a React interface to a Spring Boot API, a PostgreSQL database, and services for document extraction and PDF redaction.",
+    "features": ["Connect a React web interface to a Spring Boot backend API.", "Store application data in PostgreSQL and documents in blob storage.", "Support structured document extraction and PDF redaction through Python services.", "Run the application and its supporting services together with Docker Compose."],
+    "contribution": "I contributed mainly to backend development and deployment as part of the project team.",
+    "approach": "The Spring Boot backend connects the web interface, persistent data, document storage, and processing workers. Python services handle extraction and redaction, while Docker Compose coordinates the application services and Caddy provides the deployment entry point.",
+    "limits": "This overview describes the team's project scope and my areas of contribution. It does not report measured extraction accuracy, security certification, or Court Services adoption.",
+    "steps": ["Web interface + documents", "Backend + processing", "Stored data + results"],
+    "color": "#345d86",
+    "background": "#e8eff7"
+  },
+  {
+    "slug": "matchamate",
+    "name": "MatchAMate",
+    "category": "full-stack",
+    "label": "Full-stack · Mobile",
+    "tags": ["Flutter", "Go", "Python", "PostgreSQL", "Docker"],
+    "summary": "A mobile matching application connecting user profiles and preferences with discovery and habit-based scoring.",
+    "overview": "MatchAMate is a collaborative mobile application with a Flutter frontend and a service-based backend. The project connects user onboarding, profile and preference data, and discovery workflows through a Go API and a Python algorithm service.",
+    "features": ["Provide a Flutter mobile interface for iOS and Android.", "Support onboarding and user data through a Go REST API.", "Use a Python discovery service for habit-based scoring.", "Store data in PostgreSQL and coordinate backend services with Docker Compose."],
+    "contribution": "My main contributions to the team project were backend development and deployment.",
+    "approach": "The Flutter app communicates with a Go REST API, which connects to PostgreSQL and a separate Python discovery and algorithm service. Docker Compose runs the API, algorithm service, and database together, providing a shared environment for development and deployment work.",
+    "limits": "This overview describes the team's application and service architecture. It does not claim measured matching quality, public app-store availability, or production service performance.",
+    "steps": ["Profiles + preferences", "API + discovery service", "Habit-based scoring"],
+    "color": "#8a4564",
+    "background": "#f6eaf0"
+  },
+  {
     "slug": "cortexdocs",
+    "featured": true,
     "name": "CortexDocs AI",
     "category": "full-stack",
     "label": "Full-stack · Applied AI",
@@ -17,6 +50,7 @@
   },
   {
     "slug": "ready-to-learn",
+    "featured": true,
     "name": "Ready to Learn",
     "category": "full-stack",
     "label": "Full-stack · Education",
@@ -33,6 +67,7 @@
   },
   {
     "slug": "adapted",
+    "featured": true,
     "name": "AdaptEd",
     "category": "full-stack",
     "label": "Hackathon · Education",

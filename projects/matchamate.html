@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A mobile matching application connecting user profiles and preferences with discovery and habit-based scoring.">
+  <meta name="theme-color" content="#f8f7f3">
+  <title>MatchAMate | Yee Kiu Yeung</title>
+  <link rel="canonical" href="https://yeungeqq.github.io/personal_website/projects/matchamate.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MatchAMate | Yee Kiu Yeung">
+  <meta property="og:description" content="A mobile matching application connecting user profiles and preferences with discovery and habit-based scoring.">
+  <meta property="og:url" content="https://yeungeqq.github.io/personal_website/projects/matchamate.html">
+  <meta property="og:site_name" content="Yee Kiu Yeung — Portfolio">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html" aria-label="Yee Kiu Yeung, home"><span class="monogram" aria-hidden="true">YK</span>Yee Kiu Yeung</a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-navigation" hidden>Menu</button>
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation">
+        <a href="../index.html#projects">Projects</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a>
+        <a class="nav-github" href="https://github.com/yeungeqq">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main"><div class="wrap">
+      <section class="detail-hero"><a class="back-link" href="../index.html#projects">← Back to all projects</a><div class="eyebrow">Full-stack · Mobile</div><h1>MatchAMate</h1><p class="detail-lead">A mobile matching application connecting user profiles and preferences with discovery and habit-based scoring.</p><ul class="tags" aria-label="Technologies"><li>Flutter</li><li>Go</li><li>Python</li><li>PostgreSQL</li><li>Docker</li></ul></section>
+      <div class="detail-layout"><article class="prose" aria-label="Project overview">
+        <figure class="detail-figure"><img src="../assets/images/matchamate.svg" alt="Conceptual workflow: Profiles + preferences → API + discovery service → Habit-based scoring" width="480" height="340"><figcaption>Illustrative workflow — not an application screenshot or measured result.</figcaption></figure>
+        <h2>The idea</h2><p>MatchAMate is a collaborative mobile application with a Flutter frontend and a service-based backend. The project connects user onboarding, profile and preference data, and discovery workflows through a Go API and a Python algorithm service.</p><h2>My contribution</h2><p>My main contributions to the team project were backend development and deployment.</p><h2>Project scope</h2><ul><li>Provide a Flutter mobile interface for iOS and Android.</li><li>Support onboarding and user data through a Go REST API.</li><li>Use a Python discovery service for habit-based scoring.</li><li>Store data in PostgreSQL and coordinate backend services with Docker Compose.</li></ul><h2>Technical approach</h2><p>The Flutter app communicates with a Go REST API, which connects to PostgreSQL and a separate Python discovery and algorithm service. Docker Compose runs the API, algorithm service, and database together, providing a shared environment for development and deployment work.</p><h2>Scope &amp; limitations</h2><p>This overview describes the team&#x27;s application and service architecture. It does not claim measured matching quality, public app-store availability, or production service performance.</p>
+      </article><aside class="project-aside"><h2>Technology</h2><ul class="tags" aria-label="Technologies"><li>Flutter</li><li>Go</li><li>Python</li><li>PostgreSQL</li><li>Docker</li></ul><div class="note">This page summarizes documented project work. It does not claim independently reproduced benchmarks, production deployment, or sole authorship.</div></aside></div>
+      <nav class="next-project" aria-label="More projects"><a class="text-link" href="../index.html#projects">← All projects</a><a class="text-link" href="./cortexdocs.html">Next: CortexDocs AI →</a></nav>
+    </div></main>
+  <footer class="site-footer"><div class="wrap footer-inner"><span>Yee Kiu Yeung · Selected projects</span><span>Made with curiosity. Built for the web.</span><a href="https://github.com/yeungeqq">GitHub ↗</a></div></footer>
+</body>
+</html>

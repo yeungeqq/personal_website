@@ -28,13 +28,13 @@ def shell(title, description, body, path=""):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{e(description)}">
   <meta name="theme-color" content="#f8f7f3">
-  <title>{e(title)} | Yee Kiu Yeung</title>
+  <title>{e(title)} | Sam Yeung</title>
   <link rel="canonical" href="{BASE}{e(path)}">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{e(title)} | Yee Kiu Yeung">
+  <meta property="og:title" content="{e(title)} | Sam Yeung">
   <meta property="og:description" content="{e(description)}">
   <meta property="og:url" content="{BASE}{e(path)}">
-  <meta property="og:site_name" content="Yee Kiu Yeung — Portfolio">
+  <meta property="og:site_name" content="Sam Yeung — Portfolio">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="{prefix}assets/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{prefix}assets/css/styles.css">
@@ -44,7 +44,7 @@ def shell(title, description, body, path=""):
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="{home}" aria-label="Yee Kiu Yeung, home"><span class="monogram" aria-hidden="true">YK</span>Yee Kiu Yeung</a>
+      <a class="brand" href="{home}" aria-label="Sam Yeung, home"><span class="monogram" aria-hidden="true">YK</span>Sam Yeung</a>
       <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-navigation" hidden>Menu</button>
       <nav class="site-nav" id="site-navigation" aria-label="Main navigation">
         <a href="{home}#projects">Projects</a><a href="{home}#about">About</a><a href="{home}#contact">Contact</a>
@@ -53,7 +53,7 @@ def shell(title, description, body, path=""):
     </div>
   </header>
   <main id="main">{body}</main>
-  <footer class="site-footer"><div class="wrap footer-inner"><span>Yee Kiu Yeung · Selected projects</span><span>Made with curiosity. Built for the web.</span><a href="{GITHUB}">GitHub ↗</a></div></footer>
+  <footer class="site-footer"><div class="wrap footer-inner"><span>Sam Yeung · Selected projects</span><span>Made with curiosity. Built for the web.</span><a href="{GITHUB}">GitHub ↗</a></div></footer>
 </body>
 </html>
 '''
@@ -93,7 +93,7 @@ def homepage():
       <section class="hero" aria-labelledby="intro-title">
         <div class="hero-copy"><div class="eyebrow">Full-stack engineering &amp; applied AI</div>
           <h1 id="intro-title">Ideas into<br>useful <em>software.</em></h1>
-          <p>I'm Yee Kiu Yeung. This is a collection of my work exploring thoughtful applications, machine learning, and intelligent game agents.</p>
+          <p>I'm Sam Yeung. This is a collection of my work exploring thoughtful applications, machine learning, and intelligent game agents.</p>
           <div class="actions"><a class="button primary" href="#projects">Explore projects <span aria-hidden="true">↓</span></a><a class="button" href="{GITHUB}">View GitHub <span aria-hidden="true">↗</span></a></div>
         </div>
         <div class="hero-art" aria-hidden="true"><div class="art-label">A FEW THINGS I LIKE BUILDING</div><div class="orbit"></div><div class="orbit second"></div>
@@ -112,7 +112,7 @@ def homepage():
       <section class="section about" id="about" aria-labelledby="about-title"><div><div class="eyebrow">Behind the projects</div><h2 id="about-title">Curiosity, translated<br>into code.</h2></div><div class="about-copy"><p>My projects span full-stack applications, computer-vision experiments, and search-based game agents. This portfolio brings that work together, with a closer look at the problem, technical approach, and limitations of each project.</p><div class="skills"><div><h3>Application development</h3><p>React · TypeScript<br>Express · Spring Boot<br>PostgreSQL</p></div><div><h3>Applied machine learning</h3><p>Python · PyTorch<br>Computer vision<br>Retrieval-augmented generation</p></div><div><h3>Algorithms &amp; experiments</h3><p>Tree search · Minimax<br>Heuristic design<br>Model comparison</p></div></div></div></section>
       <section class="contact" id="contact" aria-labelledby="contact-title"><div><div class="eyebrow">Keep exploring</div><h2 id="contact-title">Let's connect.</h2><p>Find my public work and project repositories on GitHub.</p></div><a class="button primary" href="{GITHUB}">Find me on GitHub <span aria-hidden="true">↗</span></a></section>
     </div>'''
-    return shell('Full-stack engineering & applied AI', 'Explore Yee Kiu Yeung’s portfolio of full-stack applications, applied machine learning, and intelligent game agents.', body)
+    return shell('Full-stack engineering & applied AI', 'Explore Sam Yeung’s portfolio of full-stack applications, applied machine learning, and intelligent game agents.', body)
 
 
 def detail(project, next_project):

@@ -1,4 +1,4 @@
-# Yee Kiu Yeung — Personal portfolio
+# Sam Yeung — Personal portfolio
 
 A responsive, static portfolio featuring ten selected projects. Built with HTML,
 CSS, and vanilla JavaScript. No runtime packages, remote fonts, API keys, or live

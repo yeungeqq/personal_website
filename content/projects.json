@@ -1,6 +1,7 @@
 [
   {
     "slug": "vic-integrated-workbench",
+    "featured": true,
     "name": "VIC Integrated Workbench",
     "category": "full-stack",
     "label": "Full-stack · Court Services",
@@ -17,6 +18,7 @@
   },
   {
     "slug": "matchamate",
+    "featured": true,
     "name": "MatchAMate",
     "category": "full-stack",
     "label": "Full-stack · Mobile",
@@ -50,7 +52,6 @@
   },
   {
     "slug": "ready-to-learn",
-    "featured": true,
     "name": "Ready to Learn",
     "category": "full-stack",
     "label": "Full-stack · Education",
@@ -67,7 +68,6 @@
   },
   {
     "slug": "adapted",
-    "featured": true,
     "name": "AdaptEd",
     "category": "full-stack",
     "label": "Hackathon · Education",

@@ -30,8 +30,8 @@
     "approach": "The Flutter app communicates with a Go REST API, which connects to PostgreSQL and a separate Python discovery and algorithm service. Docker Compose runs the API, algorithm service, and database together, providing a shared environment for development and deployment work.",
     "limits": "This overview describes the team's application and service architecture. It does not claim measured matching quality, public app-store availability, or production service performance.",
     "steps": ["Profiles + preferences", "API + discovery service", "Habit-based scoring"],
-    "color": "#8a4564",
-    "background": "#f6eaf0"
+    "color": "#3f744f",
+    "background": "#e8f5e9"
   },
   {
     "slug": "cortexdocs",
